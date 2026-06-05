@@ -7,6 +7,7 @@
   height: 64px;
   display: flex;
   align-items: center;
+  transition: var(--transition-theme);
 }
 
 .inner {
@@ -50,8 +51,33 @@
 .link:hover { color: var(--color-ink); background-color: var(--color-surface-soft); text-decoration: none; }
 .link.active { color: var(--color-ink); background-color: var(--color-surface-card); }
 
-.cta {
+/* Right group: theme toggle + CTA */
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
   flex-shrink: 0;
+}
+
+/* Theme toggle button */
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: none;
+  border: 1px solid var(--color-hairline);
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.themeToggle:hover {
+  background-color: var(--color-surface-soft);
+  color: var(--color-ink);
+  border-color: var(--color-hairline-soft);
 }
 
 /* Hamburger */
@@ -86,6 +112,7 @@
   flex-direction: column;
   gap: var(--space-sm);
   z-index: 99;
+  transition: var(--transition-theme);
 }
 
 .drawerLink {
@@ -99,7 +126,24 @@
 }
 .drawerLink.active { color: var(--color-ink); background-color: var(--color-surface-card); }
 
+.drawerActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-hairline);
+  margin-top: var(--space-xs);
+}
+
+.drawerActions .themeToggle {
+  width: auto;
+  padding: var(--space-sm) var(--space-md);
+  justify-content: flex-start;
+  border-radius: var(--radius-md);
+}
+
 @media (max-width: 768px) {
-  .links, .cta { display: none; }
+  .links, .rightGroup { display: none; }
   .hamburger { display: flex; }
 }
+

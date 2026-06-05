@@ -6,6 +6,7 @@ import Input from '../../components/Input/Input';
 import Badge from '../../components/Badge/Badge';
 import Toast from '../../components/Toast/Toast';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '../../services/products';
+import { formatCurrency } from '../../utils/format';
 import styles from './Products.module.css';
 
 const EMPTY_FORM = { name: '', sku: '', price: '', quantity_in_stock: '' };
@@ -13,6 +14,7 @@ const EMPTY_FORM = { name: '', sku: '', price: '', quantity_in_stock: '' };
 export default function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [editTarget, setEditTarget] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
@@ -87,10 +89,18 @@ export default function Products() {
     }
   };
 
+  const filtered = search.trim()
+    ? products.filter(
+        (p) =>
+          p.name.toLowerCase().includes(search.toLowerCase()) ||
+          p.sku.toLowerCase().includes(search.toLowerCase())
+      )
+    : products;
+
   const columns = [
     { key: 'name', label: 'Name' },
     { key: 'sku', label: 'SKU', render: (r) => <code className={styles.sku}>{r.sku}</code> },
-    { key: 'price', label: 'Price', render: (r) => `$${parseFloat(r.price).toFixed(2)}` },
+    { key: 'price', label: 'Price', render: (r) => formatCurrency(r.price) },
     {
       key: 'quantity_in_stock',
       label: 'Stock',
@@ -122,10 +132,27 @@ export default function Products() {
         <Button variant="primary" onClick={openCreate}>+ Add Product</Button>
       </div>
 
+      <div className={styles.searchBar}>
+        <Input
+          id="product-search"
+          placeholder="Search by name or SKU…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
       {loading ? (
-        <p className={styles.loading}>Loading…</p>
+        <div>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="skeleton-row" />
+          ))}
+        </div>
       ) : (
-        <DataTable columns={columns} data={products} emptyMessage="No products yet. Add your first product." />
+        <DataTable
+          columns={columns}
+          data={filtered}
+          emptyMessage={search ? 'No products match your search.' : 'No products yet. Add your first product.'}
+        />
       )}
 
       {modalOpen && (
@@ -144,7 +171,7 @@ export default function Products() {
           {errors._global && <p className={styles.globalError}>{errors._global}</p>}
           <Input id="name" label="Product Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} error={errors.name} placeholder="e.g. Wireless Keyboard" />
           <Input id="sku" label="SKU / Code" value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} error={errors.sku} placeholder="e.g. KBD-001" />
-          <Input id="price" label="Price ($)" type="number" min="0" step="0.01" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} error={errors.price} placeholder="0.00" />
+          <Input id="price" label="Price (₹)" type="number" min="0" step="0.01" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} error={errors.price} placeholder="0.00" />
           <Input id="quantity_in_stock" label="Quantity in Stock" type="number" min="0" value={form.quantity_in_stock} onChange={(e) => setForm({ ...form, quantity_in_stock: e.target.value })} error={errors.quantity_in_stock} placeholder="0" />
         </Modal>
       )}
@@ -153,3 +180,4 @@ export default function Products() {
     </div>
   );
 }
+

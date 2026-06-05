@@ -81,4 +81,49 @@
 
   /* ── Shadows ── */
   --shadow-subtle: 0 1px 3px rgba(20, 20, 19, 0.08);
+
+  /* ── Transitions ── */
+  --transition-theme: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* ─── Dark Mode ─── */
+[data-theme="dark"] {
+  /* Brand */
+  --color-primary: #e08a6e;
+  --color-primary-active: #f0a080;
+  --color-primary-disabled: #4a3f38;
+
+  /* Text */
+  --color-ink: #f0ebe3;
+  --color-body: #c8c3bb;
+  --color-body-strong: #e0dbd3;
+  --color-muted: #9a9690;
+  --color-muted-soft: #6e6b66;
+  --color-on-primary: #1a1917;
+  --color-on-dark: #f0ebe3;
+  --color-on-dark-soft: #a09a93;
+
+  /* Surface */
+  --color-canvas: #1a1917;
+  --color-surface-soft: #222019;
+  --color-surface-card: #2a2724;
+  --color-surface-cream-strong: #332f2b;
+  --color-surface-dark: #111010;
+  --color-surface-dark-elevated: #1e1c19;
+  --color-surface-dark-soft: #171614;
+
+  /* Borders */
+  --color-hairline: #2e2b27;
+  --color-hairline-soft: #383430;
+
+  /* Semantic (same hues, slightly brighter for dark bg) */
+  --color-accent-teal: #6ecbb8;
+  --color-accent-amber: #f0b56a;
+  --color-success: #6ecb82;
+  --color-warning: #e0b020;
+  --color-error: #e06060;
+
+  /* Shadows */
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.5);
 }

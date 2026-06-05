@@ -7,6 +7,7 @@ import Toast from '../../components/Toast/Toast';
 import { getProducts } from '../../services/products';
 import { getCustomers } from '../../services/customers';
 import { createOrder } from '../../services/orders';
+import { formatCurrency } from '../../utils/format';
 import styles from './NewOrder.module.css';
 
 export default function NewOrder() {
@@ -126,7 +127,7 @@ export default function NewOrder() {
                     <option value="">— Select product —</option>
                     {products.map((p) => (
                       <option key={p.id} value={p.id}>
-                        {p.name} (Stock: {p.quantity_in_stock}) — ${parseFloat(p.price).toFixed(2)}
+                        {p.name} (Stock: {p.quantity_in_stock}) — {formatCurrency(p.price)}
                       </option>
                     ))}
                   </select>
@@ -147,7 +148,7 @@ export default function NewOrder() {
 
                 {selectedProduct && (
                   <div className={styles.lineTotal}>
-                    ${(parseFloat(selectedProduct.price) * (parseInt(item.quantity) || 0)).toFixed(2)}
+                    {formatCurrency(parseFloat(selectedProduct.price) * (parseInt(item.quantity) || 0))}
                   </div>
                 )}
 
@@ -165,7 +166,7 @@ export default function NewOrder() {
         <Card variant="dark" className={styles.totalCard}>
           <div className={styles.totalRow}>
             <span className={styles.totalLabel}>Estimated Total</span>
-            <span className={styles.totalValue}>${preview.toFixed(2)}</span>
+            <span className={styles.totalValue}>{formatCurrency(preview)}</span>
           </div>
           <p className={styles.totalNote}>Final total is calculated by the server.</p>
         </Card>

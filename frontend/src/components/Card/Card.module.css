@@ -1,6 +1,7 @@
 .card {
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
+  transition: var(--transition-theme);
 }
 
 .light {

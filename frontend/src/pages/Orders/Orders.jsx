@@ -2,13 +2,16 @@ import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import DataTable from '../../components/DataTable/DataTable';
+import Input from '../../components/Input/Input';
 import Toast from '../../components/Toast/Toast';
 import { getOrders, deleteOrder } from '../../services/orders';
+import { formatCurrency, formatDate } from '../../utils/format';
 import styles from './Orders.module.css';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
   const [toast, setToast] = useState(null);
 
   const load = useCallback(() => {
@@ -32,14 +35,22 @@ export default function Orders() {
     }
   };
 
+  const filtered = search.trim()
+    ? orders.filter(
+        (o) =>
+          String(o.id).includes(search) ||
+          o.customer?.full_name?.toLowerCase().includes(search.toLowerCase())
+      )
+    : orders;
+
   const columns = [
     { key: 'id', label: 'Order #', render: (r) => `#${r.id}` },
     { key: 'customer', label: 'Customer', render: (r) => r.customer?.full_name ?? '—' },
-    { key: 'total_amount', label: 'Total', render: (r) => `$${parseFloat(r.total_amount).toFixed(2)}` },
+    { key: 'total_amount', label: 'Total', render: (r) => formatCurrency(r.total_amount) },
     {
       key: 'created_at',
       label: 'Date',
-      render: (r) => new Date(r.created_at).toLocaleDateString('en-US', { dateStyle: 'medium' }),
+      render: (r) => formatDate(r.created_at, 'medium'),
     },
     {
       key: 'actions',
@@ -67,13 +78,31 @@ export default function Orders() {
         </Link>
       </div>
 
+      <div className={styles.searchBar}>
+        <Input
+          id="order-search"
+          placeholder="Search by order # or customer name…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
       {loading ? (
-        <p className={styles.loading}>Loading…</p>
+        <div>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="skeleton-row" />
+          ))}
+        </div>
       ) : (
-        <DataTable columns={columns} data={orders} emptyMessage="No orders yet." />
+        <DataTable
+          columns={columns}
+          data={filtered}
+          emptyMessage={search ? 'No orders match your search.' : 'No orders yet.'}
+        />
       )}
 
       {toast && <Toast type={toast.type} message={toast.message} onClose={() => setToast(null)} />}
     </div>
   );
 }
+

@@ -5,6 +5,7 @@ import Modal from '../../components/Modal/Modal';
 import Input from '../../components/Input/Input';
 import Toast from '../../components/Toast/Toast';
 import { getCustomers, createCustomer, deleteCustomer } from '../../services/customers';
+import { PHONE_PLACEHOLDER } from '../../utils/format';
 import styles from './Customers.module.css';
 
 const EMPTY_FORM = { full_name: '', email: '', phone: '' };
@@ -12,6 +13,7 @@ const EMPTY_FORM = { full_name: '', email: '', phone: '' };
 export default function Customers() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
@@ -66,6 +68,15 @@ export default function Customers() {
     }
   };
 
+  const filtered = search.trim()
+    ? customers.filter(
+        (c) =>
+          c.full_name.toLowerCase().includes(search.toLowerCase()) ||
+          c.email.toLowerCase().includes(search.toLowerCase()) ||
+          (c.phone && c.phone.includes(search))
+      )
+    : customers;
+
   const columns = [
     { key: 'full_name', label: 'Full Name' },
     { key: 'email', label: 'Email', render: (r) => <a href={`mailto:${r.email}`}>{r.email}</a> },
@@ -89,10 +100,27 @@ export default function Customers() {
         <Button variant="primary" onClick={openCreate}>+ Add Customer</Button>
       </div>
 
+      <div className={styles.searchBar}>
+        <Input
+          id="customer-search"
+          placeholder="Search by name, email or phone…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
       {loading ? (
-        <p className={styles.loading}>Loading…</p>
+        <div>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="skeleton-row" />
+          ))}
+        </div>
       ) : (
-        <DataTable columns={columns} data={customers} emptyMessage="No customers yet." />
+        <DataTable
+          columns={columns}
+          data={filtered}
+          emptyMessage={search ? 'No customers match your search.' : 'No customers yet.'}
+        />
       )}
 
       {modalOpen && (
@@ -109,9 +137,9 @@ export default function Customers() {
           }
         >
           {errors._global && <p className={styles.globalError}>{errors._global}</p>}
-          <Input id="full_name" label="Full Name" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} error={errors.full_name} placeholder="Jane Doe" />
-          <Input id="email" label="Email Address" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} error={errors.email} placeholder="jane@example.com" />
-          <Input id="phone" label="Phone (optional)" type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="+1 555 000 0000" />
+          <Input id="full_name" label="Full Name" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} error={errors.full_name} placeholder="e.g. Priya Sharma" />
+          <Input id="email" label="Email Address" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} error={errors.email} placeholder="priya@example.in" />
+          <Input id="phone" label="Phone (optional)" type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder={PHONE_PLACEHOLDER} />
         </Modal>
       )}
 
@@ -119,3 +147,4 @@ export default function Customers() {
     </div>
   );
 }
+

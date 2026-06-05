@@ -20,6 +20,7 @@ body {
   color: var(--color-body);
   background-color: var(--color-canvas);
   min-height: 100vh;
+  transition: var(--transition-theme);
 }
 
 h1, h2, h3 {
@@ -57,6 +58,12 @@ input, select, textarea {
   font-family: var(--font-body);
 }
 
+/* ── Focus rings ── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 /* ── Layout ── */
 .page-container {
   max-width: 1200px;
@@ -75,3 +82,29 @@ input, select, textarea {
   padding-top: var(--space-xxl);
   padding-bottom: var(--space-section);
 }
+
+/* ── Skeleton loader ── */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.skeleton {
+  background-color: var(--color-surface-card);
+  border-radius: var(--radius-md);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-row {
+  height: 48px;
+  margin-bottom: var(--space-xs);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-card);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-row:nth-child(2) { animation-delay: 0.1s; }
+.skeleton-row:nth-child(3) { animation-delay: 0.2s; }
+.skeleton-row:nth-child(4) { animation-delay: 0.3s; }
+.skeleton-row:nth-child(5) { animation-delay: 0.4s; }
+

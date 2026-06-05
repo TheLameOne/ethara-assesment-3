@@ -5,6 +5,7 @@ import Button from '../../components/Button/Button';
 import DataTable from '../../components/DataTable/DataTable';
 import Toast from '../../components/Toast/Toast';
 import { getOrder, deleteOrder } from '../../services/orders';
+import { formatCurrency, formatDate } from '../../utils/format';
 import styles from './OrderDetail.module.css';
 
 export default function OrderDetail() {
@@ -34,12 +35,12 @@ export default function OrderDetail() {
   const itemColumns = [
     { key: 'product', label: 'Product', render: (r) => r.product?.name ?? '—' },
     { key: 'sku', label: 'SKU', render: (r) => <code className={styles.sku}>{r.product?.sku}</code> },
-    { key: 'unit_price', label: 'Unit Price', render: (r) => `$${parseFloat(r.unit_price).toFixed(2)}` },
+    { key: 'unit_price', label: 'Unit Price', render: (r) => formatCurrency(r.unit_price) },
     { key: 'quantity', label: 'Qty' },
     {
       key: 'line_total',
       label: 'Line Total',
-      render: (r) => `$${(parseFloat(r.unit_price) * r.quantity).toFixed(2)}`,
+      render: (r) => formatCurrency(parseFloat(r.unit_price) * r.quantity),
     },
   ];
 
@@ -56,7 +57,7 @@ export default function OrderDetail() {
         <div>
           <h1>Order #{order.id}</h1>
           <p className={styles.date}>
-            Placed on {new Date(order.created_at).toLocaleDateString('en-US', { dateStyle: 'long' })}
+            Placed on {formatDate(order.created_at, 'long')}
           </p>
         </div>
         <Button variant="danger" onClick={handleCancel}>Cancel Order</Button>
@@ -81,7 +82,7 @@ export default function OrderDetail() {
           <div className={styles.summaryRow}>
             <span className={styles.summaryLabel}>Total Amount</span>
             <span className={`${styles.summaryValue} ${styles.total}`}>
-              ${parseFloat(order.total_amount).toFixed(2)}
+              {formatCurrency(order.total_amount)}
             </span>
           </div>
         </Card>
