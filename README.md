@@ -61,23 +61,23 @@ ethara-assesment/
 
 ## API Reference
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | /health | Health check |
-| GET | /dashboard | Summary counts |
-| POST | /products | Create product |
-| GET | /products | List all products |
-| GET | /products/{id} | Get product |
-| PUT | /products/{id} | Update product |
-| DELETE | /products/{id} | Delete product |
-| POST | /customers | Create customer |
-| GET | /customers | List all customers |
-| GET | /customers/{id} | Get customer |
-| DELETE | /customers/{id} | Delete customer |
-| POST | /orders | Create order (deducts stock) |
-| GET | /orders | List all orders |
-| GET | /orders/{id} | Get order with items |
-| DELETE | /orders/{id} | Cancel order (restores stock) |
+| Method | Path            | Description                   |
+| ------ | --------------- | ----------------------------- |
+| GET    | /health         | Health check                  |
+| GET    | /dashboard      | Summary counts                |
+| POST   | /products       | Create product                |
+| GET    | /products       | List all products             |
+| GET    | /products/{id}  | Get product                   |
+| PUT    | /products/{id}  | Update product                |
+| DELETE | /products/{id}  | Delete product                |
+| POST   | /customers      | Create customer               |
+| GET    | /customers      | List all customers            |
+| GET    | /customers/{id} | Get customer                  |
+| DELETE | /customers/{id} | Delete customer               |
+| POST   | /orders         | Create order (deducts stock)  |
+| GET    | /orders         | List all orders               |
+| GET    | /orders/{id}    | Get order with items          |
+| DELETE | /orders/{id}    | Cancel order (restores stock) |
 
 Full interactive docs at `/docs` (Swagger UI) or `/redoc`.
 
@@ -96,15 +96,15 @@ Full interactive docs at `/docs` (Swagger UI) or `/redoc`.
 
 ## Environment Variables
 
-| Variable | Description |
-|----------|-------------|
-| `POSTGRES_USER` | Database user |
-| `POSTGRES_PASSWORD` | Database password |
-| `POSTGRES_DB` | Database name |
-| `POSTGRES_HOST` | DB host (use `db` in Docker Compose) |
-| `DATABASE_URL` | Full SQLAlchemy connection string |
-| `CORS_ORIGINS` | Comma-separated allowed origins |
-| `VITE_API_URL` | Backend URL (set at frontend build time) |
+| Variable            | Description                              |
+| ------------------- | ---------------------------------------- |
+| `POSTGRES_USER`     | Database user                            |
+| `POSTGRES_PASSWORD` | Database password                        |
+| `POSTGRES_DB`       | Database name                            |
+| `POSTGRES_HOST`     | DB host (use `db` in Docker Compose)     |
+| `DATABASE_URL`      | Full SQLAlchemy connection string        |
+| `CORS_ORIGINS`      | Comma-separated allowed origins          |
+| `VITE_API_URL`      | Backend URL (set at frontend build time) |
 
 ---
 
@@ -153,10 +153,10 @@ The UI implements the Anthropic Claude warm-editorial design tokens from `DESIGN
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Backend | Python 3.12, FastAPI, SQLAlchemy 2.0, Pydantic v2 |
-| Database | PostgreSQL 16 |
-| Frontend | React 18, Vite, React Router, Axios |
-| Containerization | Docker, Docker Compose |
-| Deployment | Render (backend), Vercel (frontend) |
+| Layer            | Technology                                        |
+| ---------------- | ------------------------------------------------- |
+| Backend          | Python 3.12, FastAPI, SQLAlchemy 2.0, Pydantic v2 |
+| Database         | PostgreSQL 16                                     |
+| Frontend         | React 18, Vite, React Router, Axios               |
+| Containerization | Docker, Docker Compose                            |
+| Deployment       | Render (backend), Vercel (frontend)               |
