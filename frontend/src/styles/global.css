@@ -20,7 +20,22 @@ body {
   color: var(--color-body);
   background-color: var(--color-canvas);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   transition: var(--transition-theme);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 h1, h2, h3 {

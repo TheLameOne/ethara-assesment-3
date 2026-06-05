@@ -35,7 +35,7 @@ export default function App() {
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <BrowserRouter>
         <TopNav />
-        <main>
+        <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/products" element={<Products />} />
