@@ -1,0 +1,20 @@
+# render.yaml — Blueprint for deploying backend on Render
+# Commit this to your repository root, then use Render's "New Blueprint" feature.
+#
+# Before deploying:
+#   1. Create a free PostgreSQL instance on Render and copy the Internal Database URL.
+#   2. Set DATABASE_URL and CORS_ORIGINS in the Render dashboard environment variables.
+
+services:
+  - type: web
+    name: ethara-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: DATABASE_URL
+        sync: false          # Set manually in Render dashboard
+      - key: CORS_ORIGINS
+        sync: false          # e.g. https://your-app.vercel.app
+    healthCheckPath: /health
+    plan: free

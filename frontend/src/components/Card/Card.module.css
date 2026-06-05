@@ -1,0 +1,25 @@
+.card {
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
+.light {
+  background-color: var(--color-surface-card);
+  color: var(--color-ink);
+}
+
+.canvas {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  border: 1px solid var(--color-hairline);
+}
+
+.dark {
+  background-color: var(--color-surface-dark);
+  color: var(--color-on-dark);
+}
+
+.coral {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}

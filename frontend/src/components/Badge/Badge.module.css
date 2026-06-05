@@ -1,0 +1,39 @@
+.badge {
+  display: inline-block;
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+.pill {
+  background-color: var(--color-surface-card);
+  color: var(--color-ink);
+  font-size: var(--text-caption);
+}
+
+.coral {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--text-caption-up);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.success {
+  background-color: rgba(93, 184, 114, 0.15);
+  color: var(--color-success);
+  font-size: var(--text-caption);
+}
+
+.warning {
+  background-color: rgba(212, 160, 23, 0.15);
+  color: var(--color-warning);
+  font-size: var(--text-caption);
+}
+
+.error {
+  background-color: rgba(198, 69, 69, 0.15);
+  color: var(--color-error);
+  font-size: var(--text-caption);
+}

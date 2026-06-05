@@ -1,0 +1,25 @@
+.footer {
+  background-color: var(--color-surface-dark);
+  color: var(--color-on-dark-soft);
+  padding: var(--space-xl) 0;
+  margin-top: var(--space-section);
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.brand {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--text-body-sm);
+  color: var(--color-on-dark);
+}
+
+.copy {
+  font-size: var(--text-body-sm);
+}
