@@ -1,9 +1,14 @@
-# render.yaml — Blueprint for deploying backend on Render
-# Commit this to your repository root, then use Render's "New Blueprint" feature.
+# render.yaml — Render Blueprint for ethara-assesment backend
 #
-# Before deploying:
-#   1. Create a free PostgreSQL instance on Render and copy the Internal Database URL.
-#   2. Set DATABASE_URL and CORS_ORIGINS in the Render dashboard environment variables.
+# Render builds directly from the GitHub Dockerfile — no local Docker required.
+# GitHub Actions (.github/workflows/docker-push.yml) pushes the image to Docker Hub
+# automatically whenever code is pushed to main.
+#
+# Steps before deploying:
+#   1. Push repo to GitHub.
+#   2. Add DOCKERHUB_USERNAME and DOCKERHUB_TOKEN secrets in GitHub repo settings.
+#   3. Create a free PostgreSQL instance on Render, copy the Internal Database URL.
+#   4. Set DATABASE_URL and CORS_ORIGINS as env vars in the Render dashboard.
 
 services:
   - type: web
@@ -13,8 +18,8 @@ services:
     dockerContext: ./backend
     envVars:
       - key: DATABASE_URL
-        sync: false # Set manually in Render dashboard
+        sync: false   # Paste Render Internal Database URL here
       - key: CORS_ORIGINS
-        sync: false # e.g. https://your-app.vercel.app
+        sync: false   # e.g. https://your-app.vercel.app
     healthCheckPath: /health
     plan: free
