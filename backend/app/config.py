@@ -7,7 +7,9 @@ class Settings(BaseSettings):
 
     @property
     def cors_origins_list(self) -> list[str]:
-        return [o.strip() for o in self.cors_origins.split(",")]
+        # Strip whitespace and trailing slashes so Render env var formatting doesn't break matching
+        origins = [o.strip().rstrip("/") for o in self.cors_origins.split(",") if o.strip()]
+        return origins
 
     class Config:
         env_file = ".env"

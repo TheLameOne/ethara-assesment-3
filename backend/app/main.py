@@ -22,9 +22,16 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# Build origins list at startup; also always allow localhost for local dev
+_origins = settings.cors_origins_list
+if "http://localhost:3000" not in _origins:
+    _origins.append("http://localhost:3000")
+if "http://localhost:5173" not in _origins:
+    _origins.append("http://localhost:5173")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins_list,
+    allow_origins=_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
