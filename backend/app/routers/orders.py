@@ -1,7 +1,7 @@
 from decimal import Decimal
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session, joinedload
-from sqlalchemy import select, with_for_update
+from sqlalchemy import select
 
 from app.database import get_db
 from app.models.customer import Customer
