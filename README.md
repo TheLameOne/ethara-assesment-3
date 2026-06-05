@@ -1,6 +1,6 @@
 # Inventory & Order Management System
 
-Full-stack containerized app: **FastAPI** + **React/Vite** + **PostgreSQL**, styled to the Anthropic Claude warm-cream/coral design system.
+Full-stack containerized app: **FastAPI** + **React/Vite** + **PostgreSQL**
 
 ---
 
@@ -50,7 +50,7 @@ ethara-assesment/
     ├── vercel.json          # SPA rewrite for Vercel
     └── src/
         ├── styles/
-        │   ├── tokens.css   # All DESIGN.md tokens as CSS custom properties
+        │   ├── tokens.css   
         │   └── global.css
         ├── components/      # Button, Card, Badge, Input, Modal, Toast, DataTable, TopNav, Footer
         ├── pages/           # Dashboard, Products, Customers, Orders, NewOrder, OrderDetail
@@ -135,19 +135,6 @@ Update `render.yaml` to use `image: your-dockerhub-user/ethara-backend:latest` i
 2. Set **Root Directory** to `frontend`
 3. Set environment variable: `VITE_API_URL` = `https://your-service.onrender.com`
 4. Deploy — frontend will be live at `https://your-app.vercel.app`
-
----
-
-## Design System
-
-The UI implements the Anthropic Claude warm-editorial design tokens from `DESIGN.md`:
-
-- **Canvas**: `#faf9f5` cream — warm, not pure white
-- **Primary / Coral CTA**: `#cc785c`
-- **Dark surfaces**: `#181715` (metric cards, code windows, footer)
-- **Display font**: Cormorant Garamond (Copernicus substitute via Google Fonts)
-- **Body font**: Inter (StyreneB substitute via Google Fonts)
-- All tokens exposed as CSS custom properties in `src/styles/tokens.css`
 
 ---
 
